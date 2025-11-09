@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playwright Summit — Submitted Sessions</title>
+    <link rel="icon" href="data:," />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg-start: #0f172a;
+        --bg-mid: #1e293b;
+        --bg-end: #020617;
+        --card-bg: #f8fafc;
+        --text-dark: #0f172a;
+        --text-muted: #334155;
+        --brand-green: #1ac561;
+        --brand-green-deep: #065f46;
+        --brand-blue: #0ea5e9;
+        --slate-200: #e2e8f0;
+        --slate-300: #cbd5e1;
+        --slate-500: #64748b;
+        --shadow: rgba(15, 23, 42, 0.25);
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px auto;
+        padding: 20px;
+        max-width: 1200px;
+        background: linear-gradient(
+          160deg,
+          var(--bg-start) 0%,
+          var(--bg-mid) 60%,
+          var(--bg-end) 100%
+        );
+        color: var(--text-dark);
+      }
+      .card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        box-shadow: 0 16px 40px var(--shadow);
+        padding: 32px 38px;
+        border: 1px solid rgba(37, 99, 235, 0.35);
+      }
+      h1 {
+        margin: 0 0 8px 0;
+        color: var(--text-dark);
+      }
+      .subtitle {
+        margin: 0 0 24px 0;
+        color: var(--text-muted);
+      }
+      .toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      .count-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        background: rgba(148, 163, 184, 0.18);
+        border-radius: 999px;
+        color: var(--brand-green-deep);
+        box-shadow: 0 0 0 1px rgba(26, 197, 97, 0.25) inset;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: #ffffff;
+        border: 1px solid rgba(30, 64, 175, 0.25);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+      thead {
+        background: linear-gradient(
+          135deg,
+          rgba(26, 197, 97, 0.12),
+          rgba(14, 165, 233, 0.12)
+        );
+      }
+      thead th {
+        text-align: left;
+        padding: 14px 16px;
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--text-dark);
+        border-bottom: 1px solid var(--slate-300);
+      }
+      tbody td {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--slate-200);
+        vertical-align: top;
+        color: #0f172a;
+        background: #ffffff;
+      }
+      tbody tr:hover td {
+        background: rgba(240, 253, 250, 0.6);
+      }
+      .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        box-shadow: 0 0 0 1px rgba(14, 165, 233, 0.35) inset;
+        color: var(--brand-green-deep);
+        background: rgba(226, 232, 240, 0.6);
+      }
+      .pill.level {
+        color: #0f172a;
+      }
+      .pill.status-pending {
+        color: #92400e;
+        background: rgba(251, 191, 36, 0.18);
+        box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.35) inset;
+      }
+      .pill.status-approved {
+        color: var(--brand-green-deep);
+        background: rgba(26, 197, 97, 0.24);
+        box-shadow: 0 0 0 1px rgba(26, 197, 97, 0.35) inset;
+      }
+      .pill.status-declined {
+        color: #7f1d1d;
+        background: rgba(239, 68, 68, 0.16);
+        box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.35) inset;
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        border: none;
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          filter 0.2s ease;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn-approve {
+        color: #fff;
+        background: linear-gradient(
+          135deg,
+          var(--brand-green) 0%,
+          var(--brand-blue) 100%
+        );
+        box-shadow: 0 10px 18px rgba(14, 165, 233, 0.25);
+      }
+      .btn-decline {
+        color: #fff;
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        box-shadow: 0 10px 18px rgba(239, 68, 68, 0.25);
+      }
+      .topics-list {
+        display: inline-flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .topic {
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: rgba(148, 163, 184, 0.18);
+        color: #0f172a;
+        font-size: 12px;
+      }
+
+      .footer-note {
+        margin-top: 18px;
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+
+      @media (max-width: 860px) {
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
+        }
+        thead {
+          position: absolute;
+          top: -9999px;
+          left: -9999px;
+        }
+        tbody tr {
+          margin: 0 0 12px 0;
+          border: 1px solid var(--slate-300);
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        tbody td {
+          border: none;
+          position: relative;
+          padding-left: 50%;
+        }
+        tbody td::before {
+          position: absolute;
+          top: 12px;
+          left: 16px;
+          width: 45%;
+          white-space: nowrap;
+          color: var(--slate-500);
+          font-weight: 600;
+          content: attr(data-label);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Submitted Sessions</h1>
+      <p class="subtitle">
+        Review Playwright Summit session proposals. Approve the ones you love,
+        or decline with a click.
+      </p>
+
+      <div class="toolbar" role="status" aria-live="polite">
+        <div class="count-pill" id="summary-count">
+          <strong>Total submissions:</strong>
+          <span id="total-count">5</span>
+        </div>
+      </div>
+
+      <table id="submissions-table" aria-describedby="summary-count">
+        <colgroup>
+          <col style="width: 220px" />
+          <col style="width: 240px" />
+          <col />
+          <col style="width: 170px" />
+          <col style="width: 220px" />
+          <col style="width: 140px" />
+          <col style="width: 180px" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col">Speaker</th>
+            <th scope="col">Session Format</th>
+            <th scope="col">Topics</th>
+            <th scope="col">Audience Level</th>
+            <th scope="col">Files</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-id="1">
+            <td data-label="Speaker">John Doe</td>
+            <td data-label="Session Format">Deep Dive (45 mins)</td>
+            <td data-label="Topics">
+              <span class="topics-list">
+                <span class="topic">Automated Testing</span>
+                <span class="topic">Visual Regression</span>
+              </span>
+            </td>
+            <td data-label="Audience Level">
+              <span class="pill level">Intermediate</span>
+            </td>
+            <td data-label="Files">john-doe-slides.pdf</td>
+            <td data-label="Status">
+              <span class="pill status-pending">Pending</span>
+            </td>
+            <td data-label="Actions">
+              <div class="actions">
+                <button
+                  class="btn btn-approve"
+                  data-speaker="John Doe"
+                  aria-label="Approve submission for John Doe"
+                >
+                  Approve
+                </button>
+                <button
+                  class="btn btn-decline"
+                  data-speaker="John Doe"
+                  aria-label="Decline submission for John Doe"
+                >
+                  Decline
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr data-id="2">
+            <td data-label="Speaker">Jane Smith</td>
+            <td data-label="Session Format">Lightning Talk (15 mins)</td>
+            <td data-label="Topics">
+              <span class="topics-list">
+                <span class="topic">Ecosystem Integrations</span>
+              </span>
+            </td>
+            <td data-label="Audience Level">
+              <span class="pill level">Introductory</span>
+            </td>
+            <td data-label="Files">jane-smith-outline.txt</td>
+            <td data-label="Status">
+              <span class="pill status-pending">Pending</span>
+            </td>
+            <td data-label="Actions">
+              <div class="actions">
+                <button
+                  class="btn btn-approve"
+                  data-speaker="Jane Smith"
+                  aria-label="Approve submission for Jane Smith"
+                >
+                  Approve
+                </button>
+                <button
+                  class="btn btn-decline"
+                  data-speaker="Jane Smith"
+                  aria-label="Decline submission for Jane Smith"
+                >
+                  Decline
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr data-id="3">
+            <td data-label="Speaker">Bob Johnson</td>
+            <td data-label="Session Format">Panel Discussion</td>
+            <td data-label="Topics">
+              <span class="topics-list">
+                <span class="topic">Scaling Across Teams</span>
+              </span>
+            </td>
+            <td data-label="Audience Level">
+              <span class="pill level">Advanced</span>
+            </td>
+            <td data-label="Files">bob-johnson-ppt.pptx</td>
+            <td data-label="Status">
+              <span class="pill status-pending">Pending</span>
+            </td>
+            <td data-label="Actions">
+              <div class="actions">
+                <button
+                  class="btn btn-approve"
+                  data-speaker="Bob Johnson"
+                  aria-label="Approve submission for Bob Johnson"
+                >
+                  Approve
+                </button>
+                <button
+                  class="btn btn-decline"
+                  data-speaker="Bob Johnson"
+                  aria-label="Decline submission for Bob Johnson"
+                >
+                  Decline
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr data-id="4">
+            <td data-label="Speaker">Alice Williams</td>
+            <td data-label="Session Format">Hands-on Workshop (90 mins)</td>
+            <td data-label="Topics">
+              <span class="topics-list">
+                <span class="topic">Automated Testing</span>
+                <span class="topic">Ecosystem Integrations</span>
+              </span>
+            </td>
+            <td data-label="Audience Level">
+              <span class="pill level">Advanced</span>
+            </td>
+            <td data-label="Files">alice-workshop.pdf</td>
+            <td data-label="Status">
+              <span class="pill status-pending">Pending</span>
+            </td>
+            <td data-label="Actions">
+              <div class="actions">
+                <button
+                  class="btn btn-approve"
+                  data-speaker="Alice Williams"
+                  aria-label="Approve submission for Alice Williams"
+                >
+                  Approve
+                </button>
+                <button
+                  class="btn btn-decline"
+                  data-speaker="Alice Williams"
+                  aria-label="Decline submission for Alice Williams"
+                >
+                  Decline
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr data-id="5">
+            <td data-label="Speaker">Carlos Gomez</td>
+            <td data-label="Session Format">Deep Dive (45 mins)</td>
+            <td data-label="Topics">
+              <span class="topics-list">
+                <span class="topic">Visual Regression</span>
+              </span>
+            </td>
+            <td data-label="Audience Level">
+              <span class="pill level">Intermediate</span>
+            </td>
+            <td data-label="Files">carlos-deepdive.pdf</td>
+            <td data-label="Status">
+              <span class="pill status-pending">Pending</span>
+            </td>
+            <td data-label="Actions">
+              <div class="actions">
+                <button
+                  class="btn btn-approve"
+                  data-speaker="Carlos Gomez"
+                  aria-label="Approve submission for Carlos Gomez"
+                >
+                  Approve
+                </button>
+                <button
+                  class="btn btn-decline"
+                  data-speaker="Carlos Gomez"
+                  aria-label="Decline submission for Carlos Gomez"
+                >
+                  Decline
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="footer-note">
+        Tip: In your tests, locate rows by speaker name, then scope actions
+        within that row for stable selectors. Approving shows an alert;
+        declining asks for confirmation and removes the row.
+      </p>
+    </div>
+
+    <script src="table-page.js"></script>
+  </body>
+</html>

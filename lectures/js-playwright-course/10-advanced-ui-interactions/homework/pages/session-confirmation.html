@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Session Proposal Confirmation</title>
+    <link rel="icon" href="data:," />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: radial-gradient(
+          circle at top,
+          #1ac561 0%,
+          #0ea5e9 45%,
+          #0f172a 100%
+        );
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0f172a;
+        padding: 24px;
+      }
+      .panel {
+        background: rgba(248, 250, 252, 0.95);
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 640px;
+        width: 100%;
+        box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+        border: 1px solid rgba(15, 23, 42, 0.12);
+      }
+      h1 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 28px;
+        color: #064e3b;
+      }
+      .lead {
+        margin-top: 0;
+        margin-bottom: 24px;
+        color: #155e75;
+        font-size: 17px;
+      }
+      .summary {
+        background: rgba(226, 232, 240, 0.6);
+        border-radius: 16px;
+        padding: 24px;
+        line-height: 1.6;
+        border: 1px solid rgba(14, 165, 233, 0.35);
+      }
+      .summary strong {
+        display: inline-block;
+        width: 160px;
+        color: #0f172a;
+      }
+      .footer-note {
+        margin-top: 28px;
+        font-size: 14px;
+        color: #1e293b;
+      }
+      a.button {
+        display: inline-block;
+        margin-top: 24px;
+        padding: 12px 24px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #1ac561 0%, #0ea5e9 100%);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      a.button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 24px rgba(14, 165, 233, 0.35);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="panel">
+      <h1>Thank you for your submission!</h1>
+      <p class="lead">
+        We received your Playwright Summit session proposal. A member of the
+        program committee will reach out soon.
+      </p>
+      <div class="summary" role="status" aria-live="polite">
+        <p>
+          <strong>Session Format:</strong> <span id="confirm-format"></span>
+        </p>
+        <p><strong>Topics:</strong> <span id="confirm-topics"></span></p>
+        <p><strong>Audience Level:</strong> <span id="confirm-level"></span></p>
+        <p><strong>Files:</strong> <span id="confirm-files"></span></p>
+      </div>
+      <p class="footer-note">
+        Need to tweak anything? Revisit the submission form to update your
+        proposal and resend it.
+      </p>
+      <a class="button" href="registration-form.html">Submit another session</a>
+    </div>
+
+    <script type="module">
+      const params = new URLSearchParams(window.location.search);
+      const format = params.get("format") || "Not specified";
+      const topics = params.getAll("topic");
+      const level = params.get("level") || "Not specified";
+      const files = params.getAll("file");
+
+      document.getElementById("confirm-format").textContent = format;
+      document.getElementById("confirm-topics").textContent =
+        topics.length > 0 ? topics.join(", ") : "No topics supplied";
+      document.getElementById("confirm-level").textContent = level;
+      document.getElementById("confirm-files").textContent =
+        files.length > 0 ? files.join(", ") : "No files attached";
+    </script>
+  </body>
+</html>

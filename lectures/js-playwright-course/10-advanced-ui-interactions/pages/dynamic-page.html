@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Content Practice</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+      }
+      button {
+        padding: 10px 20px;
+        margin: 10px 5px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      #loading {
+        color: #ff9800;
+        font-weight: bold;
+        display: none;
+      }
+      #content {
+        margin-top: 20px;
+        padding: 20px;
+        background: #e8f5e9;
+        border-radius: 4px;
+        display: none;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dynamic Content Test Page</h1>
+
+    <button id="load-content">Load Content</button>
+    <button id="show-hidden">Show Hidden Element</button>
+    <button id="show-alert">Show Alert</button>
+    <button id="show-confirm">Show Confirm</button>
+
+    <div id="loading">Loading...</div>
+    <div id="content">This content loaded dynamically!</div>
+    <div id="hidden-element" class="hidden">I was hidden!</div>
+
+    <script src="./dynamic-page-script.js"></script>
+  </body>
+</html>

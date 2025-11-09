@@ -1,0 +1,309 @@
+/* Shared styles inspired by lectures/10-advanced-ui-interactions/homework/pages */
+:root {
+  color-scheme: light dark;
+  --bg-start: #0f172a;
+  --bg-mid: #1e293b;
+  --bg-end: #020617;
+  --card-bg: #f8fafc;
+  --text-dark: #0f172a;
+  --text-muted: #334155;
+  --brand-green: #1ac561;
+  --brand-green-deep: #065f46;
+  --brand-blue: #0ea5e9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-500: #64748b;
+  --shadow: rgba(15, 23, 42, 0.25);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 40px auto;
+  padding: 20px;
+  max-width: 1200px;
+  background: linear-gradient(
+    160deg,
+    var(--bg-start) 0%,
+    var(--bg-mid) 60%,
+    var(--bg-end) 100%
+  );
+  color: var(--text-dark);
+}
+
+/* Generic elevated container */
+.card,
+.panel {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px var(--shadow);
+  padding: 32px 38px;
+  border: 1px solid rgba(37, 99, 235, 0.35);
+}
+
+h1 {
+  margin: 0 0 12px 0;
+  color: var(--text-dark);
+}
+
+.subtitle {
+  margin: 0 0 24px 0;
+  color: var(--text-muted);
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text-dark);
+}
+
+select,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="file"],
+textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(30, 64, 175, 0.4);
+  box-sizing: border-box;
+  font-size: 15px;
+  background: #ffffff;
+  color: var(--text-dark);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+select:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="file"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--brand-green);
+  box-shadow: 0 0 0 3px rgba(26, 197, 97, 0.25);
+}
+
+/* Inline option groups */
+.options-group label,
+.checkbox-group label,
+.radio-group label {
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-right: 18px;
+  margin-bottom: 12px;
+  padding: 8px 14px;
+  background: rgba(148, 163, 184, 0.18);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.options-group input,
+.checkbox-group input,
+.radio-group input {
+  margin-right: 6px;
+  accent-color: var(--brand-green);
+}
+
+.options-group label:hover,
+.checkbox-group label:hover,
+.radio-group label:hover {
+  background: rgba(26, 197, 97, 0.18);
+  color: var(--brand-green-deep);
+}
+
+.options-group label:has(input:checked),
+.checkbox-group label:has(input:checked),
+.radio-group label:has(input:checked) {
+  background: rgba(26, 197, 97, 0.3);
+  color: var(--brand-green-deep);
+  box-shadow: 0 0 0 1px rgba(26, 197, 97, 0.35);
+}
+
+/* Buttons */
+button,
+button[type="submit"],
+.btn,
+a.button {
+  background: linear-gradient(
+    135deg,
+    var(--brand-green) 0%,
+    var(--brand-blue) 100%
+  );
+  color: #fff;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+button:hover,
+button[type="submit"]:hover,
+.btn:hover,
+a.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(14, 165, 233, 0.35);
+}
+
+/* Result/info panels */
+.result-panel,
+#result {
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid rgba(26, 197, 97, 0.35);
+  background: rgba(240, 253, 250, 0.85);
+}
+
+.result-panel h2,
+#result h2 {
+  margin-top: 0;
+  color: var(--brand-green-deep);
+}
+
+.file-info {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #1e293b;
+}
+
+/* Simple nav styling to match palette */
+nav {
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: rgba(226, 232, 240, 0.6);
+  border: 1px solid rgba(14, 165, 233, 0.35);
+}
+
+nav a {
+  color: var(--brand-green-deep);
+  text-decoration: none;
+  margin: 0 12px;
+  font-weight: 700;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border: 1px solid rgba(30, 64, 175, 0.25);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+thead {
+  background: linear-gradient(
+    135deg,
+    rgba(26, 197, 97, 0.12),
+    rgba(14, 165, 233, 0.12)
+  );
+}
+
+thead th {
+  text-align: left;
+  padding: 14px 16px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-dark);
+  border-bottom: 1px solid var(--slate-300);
+}
+
+tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--slate-200);
+  vertical-align: top;
+  color: var(--text-dark);
+  background: #ffffff;
+}
+
+tbody tr:hover td {
+  background: rgba(240, 253, 250, 0.6);
+}
+
+.edit-btn {
+  background: linear-gradient(
+    135deg,
+    var(--brand-green) 0%,
+    var(--brand-blue) 100%
+  );
+  color: #fff;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* Utility spacing for pages lacking container */
+.page-wrap {
+  display: block;
+}
+
+/* Responsive table fallback */
+@media (max-width: 860px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+  thead {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  tbody tr {
+    margin: 0 0 12px 0;
+    border: 1px solid var(--slate-300);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  tbody td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+  }
+  tbody td::before {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    width: 45%;
+    white-space: nowrap;
+    color: var(--slate-500);
+    font-weight: 600;
+    content: attr(data-label);
+  }
+}

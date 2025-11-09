@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Complex Form - Automation Practice</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      .form-container {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #333;
+        margin-bottom: 30px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #555;
+      }
+      select,
+      input[type="text"],
+      input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+      }
+      .checkbox-group,
+      .radio-group {
+        margin-top: 8px;
+      }
+      .checkbox-group label,
+      .radio-group label {
+        display: inline-block;
+        font-weight: normal;
+        margin-right: 20px;
+        margin-bottom: 8px;
+      }
+      .checkbox-group input,
+      .radio-group input {
+        margin-right: 5px;
+      }
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 20px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      #result {
+        margin-top: 30px;
+        padding: 20px;
+        background: #e8f5e9;
+        border-radius: 4px;
+        display: none;
+      }
+      #result h2 {
+        margin-top: 0;
+        color: #2e7d32;
+      }
+      /* Make the result panel text darker for readability on the pale green background */
+      #result p,
+      #result strong,
+      #result span {
+        margin: 5px 0;
+        color: #1f2933; /* dark slate color */
+      }
+      .file-info {
+        margin-top: 8px;
+        font-size: 12px;
+        color: #444;
+      }
+    </style>
+    <link rel="icon" href="data:," />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Complex form page for Playwright practice"
+    />
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="light dark" />
+  </head>
+  <body>
+    <div class="form-container">
+      <h1>Registration Form</h1>
+      <form id="registration-form">
+        <!-- Textbox / Text Input -->
+        <div class="form-group">
+          <label for="full-name">Full Name:</label>
+          <input
+            type="text"
+            id="full-name"
+            name="fullName"
+            placeholder="Enter your full name"
+            autocomplete="name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="country">Country:</label>
+          <select id="country" name="country">
+            <option value="">-- Select Country --</option>
+            <option value="usa">United States</option>
+            <option value="canada">Canada</option>
+            <option value="uk">United Kingdom</option>
+            <option value="australia">Australia</option>
+            <option value="germany">Germany</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Interests (select multiple):</label>
+          <div class="checkbox-group">
+            <label
+              ><input
+                type="checkbox"
+                name="interests"
+                value="coding"
+                id="interest-coding"
+              />
+              Coding</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="interests"
+                value="testing"
+                id="interest-testing"
+              />
+              Testing</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="interests"
+                value="design"
+                id="interest-design"
+              />
+              Design</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="interests"
+                value="devops"
+                id="interest-devops"
+              />
+              DevOps</label
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Experience Level:</label>
+          <div class="radio-group">
+            <label
+              ><input
+                type="radio"
+                name="experience"
+                value="beginner"
+                id="exp-beginner"
+              />
+              Beginner</label
+            >
+            <label
+              ><input
+                type="radio"
+                name="experience"
+                value="intermediate"
+                id="exp-intermediate"
+              />
+              Intermediate</label
+            >
+            <label
+              ><input
+                type="radio"
+                name="experience"
+                value="advanced"
+                id="exp-advanced"
+              />
+              Advanced</label
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="resume">Upload Resume:</label>
+          <input
+            type="file"
+            id="resume"
+            name="resume"
+            accept=".pdf,.doc,.docx,.txt"
+            multiple
+          />
+          <div class="file-info" id="file-info">No file selected</div>
+        </div>
+
+        <div class="form-group">
+          <label
+            ><input type="checkbox" id="terms" name="terms" /> I agree to the
+            terms and conditions</label
+          >
+        </div>
+
+        <button
+          type="submit"
+          id="submit-button"
+          class="submit-button"
+          data-testid="submit-button"
+        >
+          Submit Registration
+        </button>
+      </form>
+
+      <div id="result">
+        <h2>Registration Successful!</h2>
+        <p><strong>Country:</strong> <span id="result-country"></span></p>
+        <p><strong>Interests:</strong> <span id="result-interests"></span></p>
+        <p><strong>Experience:</strong> <span id="result-experience"></span></p>
+        <p><strong>Resume:</strong> <span id="result-resume"></span></p>
+      </div>
+    </div>
+
+    <script src="complex-form-page-script.js"></script>
+  </body>
+</html>
